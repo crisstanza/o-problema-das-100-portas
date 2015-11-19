@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>O Problema das 10 Portas</title>
+		<style>
+			.text {
+				text-align: center;
+				padding: 4px;
+			}
+			#house {
+				border: 1px dotted gray;
+				width: 200px;
+				height: 260px;
+				margin: auto;
+				padding: 10px;
+			}
+			.door {
+				border: 1px solid gray;
+				width: 48px;
+				height: 48px;
+				float: left;
+				margin: 4px;
+				padding: 4px;
+			}
+			.closed {
+				background-color: red;
+			}
+			.open {
+				background-color: green;
+			}
+			#keyboard {
+				border: 1px dotted gray;
+				width: 200px;
+				height: 230px;
+				margin: auto;
+				padding: 10px;
+			}
+			button {
+				width: 48px;
+				height: 48px;
+				margin: 4px;
+				padding: 4px;
+			}
+			span {
+				display: block;
+				text-align: center;
+			}
+			.left {
+				float: left;
+				padding: 10px;
+				padding-right: 100px;
+			}
+		</style>
+		<script type="text/javascript" src="./js/DomUtils.js"></script>
+		<script type="text/javascript" src="./js/js.js"></script>
+		<script>
+			(function() {
+				var MAX_DOORS = 10;
+				var side = Math.floor(Math.sqrt(MAX_DOORS));
+				function init() {
+					var house = document.getElementById('house');
+					for (var i = 0 ; i < MAX_DOORS ; i++) {
+						var n = i + 1;
+						var door = '<div class="door closed" id="door-'+i+'">'+n+'</div>';
+						house.innerHTML += door;
+					}
+				}
+				window.addEventListener('load', function() {
+					init();
+				});
+			})();
+			function toggleDoor(n) {
+				var i = n - 1;
+				var id = 'door-'+(i == -1 ? 9 : i);
+				DomUtils.toggleClass(id, 'closed', 'open');
+			}
+			function btClick(sender) {
+				var n = sender.innerHTML;
+				toggleDoor(n);
+			}
+			var simulator = {
+				click: function(n) { toggleDoor(n); }
+			};
+		</script>
+	</head>
+	<body>
+		<div class="left">
+			<a href="javascript: startSimulation()">start simulation</a>
+		</div>
+		<div class="left">
+			<div class="text">keyboard:</div>
+			<div id="keyboard">
+				<span>
+					<button onclick="btClick(this)">1</button><button onclick="btClick(this)">2</button><button onclick="btClick(this)">3</button>
+					<button onclick="btClick(this)">4</button><button onclick="btClick(this)">5</button><button onclick="btClick(this)">6</button>
+					<button onclick="btClick(this)">7</button><button onclick="btClick(this)">8</button><button onclick="btClick(this)">9</button>
+					<button onclick="btClick(this)">0</button>
+				</span>
+			</div>
+		</div>
+		<div class="left">
+			<div class="text">house</div>
+			<div id="house"></div>
+			<br />
+			red: closed<br />
+			green: open<br />
+		</div>
+	</body>
+</html>
+
