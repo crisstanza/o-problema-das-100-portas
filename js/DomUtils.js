@@ -88,7 +88,7 @@ var DomUtils = {};
 					return;
 				}
 			}
-			var newClassNames = classNames + ' ' + className;
+			var newClassNames = classNames.trim() + ' ' + className;
 			element.setAttribute('class', newClassNames);
 		} else {
 			element.setAttribute('class', className);	
